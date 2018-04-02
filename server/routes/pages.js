@@ -1,6 +1,6 @@
 module.exports = (server, app) => {
     server
-        .get('/main', (req, res) => {
+        .get('/', (req, res) => {
             app.render(req, res, '/index');
         });
 };
