@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const passport = require('passport');
 const passportGithub = require('passport-github');
 const fetch = require('node-fetch');

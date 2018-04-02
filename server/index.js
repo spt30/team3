@@ -1,20 +1,25 @@
 'use strict';
 
+/* eslint-disable capitalized-comments */
+
+require('dotenv').config();
+
 const next = require('next');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const setupApiRoutes = require('./routers/api');
-const setupPagesRoutes = require('./routers/pages');
+const routesPages = require('./routes/pages');
+const routesApi = require('./routes/api');
+const routesAuth = require('./routes/auth');
 
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const server = express();
 
 app.prepare().then(() => {
-    server.use(bodyParser.json());
+    routesAuth(server);
+    routesPages(server, app);
+    routesApi(server);
 
-    setupApiRoutes(server, app);
-    setupPagesRoutes(server, app);
-
-    server.listen(3000, () => console.log('Listening on http://localhost:3000'));
+    server.use(bodyParser.json())
+        .listen(3000, () => console.log('Listening on http://localhost:3000'));
 });
